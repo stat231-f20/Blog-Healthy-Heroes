@@ -15,7 +15,7 @@ library(tidyverse)
 
 # Carbon Emissions and Respiratory Illness:
 
-Is there a connection between carbon dioxide emissions levels and respiratory illness at the state level? 
+Is there a statewide connection between carbon dioxide emissions levels and respiratory illness? 
 
 ## Header 2
 
