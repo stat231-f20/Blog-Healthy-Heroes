@@ -1,0 +1,60 @@
+---
+title: "PUG Blog Project Data Wrangling"
+author: "Majd Rouhana"
+date: "11/06/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(dplyr)
+```
+
+## Wrangling
+
+```{r}
+# reading in and wrangling csv for resp. disease rates
+clrdms <- read_csv("~/Chronic Lower Respiratory Disease Mortality by State.csv") %>%
+  filter(YEAR == 2018) %>%
+  mutate(`State Abbreviation` = STATE, Rate = RATE, Deaths = DEATHS) %>%
+  select(`State Abbreviation`, Rate, Deaths)
+
+# reading in and wrangling csv for educational attainment
+eduData <- read_csv("~/csvData.csv") %>%
+  arrange(State) %>%
+  filter(State != "Puerto Rico", State != "Washington DC") %>%
+  mutate(`State Abbreviation` = clrdms$`State Abbreviation`)
+
+# joining the previous two datasets
+data <- clrdms %>%
+  inner_join(eduData)
+
+# reading in and wrangling csv for state carbon emissions
+carbonData <- read_csv("~/carbonData.csv") %>%
+  na.omit() %>%
+  filter(State != "Total of states (unadjusted)?", State != "United States", State != "District of Columbia") %>%
+  mutate(`C02 Emission` = `2017`) %>%
+  select(State, `C02 Emission`)
+
+# reading in and wrangling csv for per capita state carbon emissions
+perCapita <- read_csv("~/perCapita.csv") %>%
+  na.omit() %>%
+  filter(State != "Average all states") %>%
+  mutate(`Per Capita C02 Emission` = `2017`) %>%
+  select(State, `Per Capita C02 Emission`)
+
+# joining the previous two datasets with the `data` dataset
+data2 <- carbonData %>%
+  inner_join(perCapita)
+
+# reading in and wrangling csv for median income by state
+medianIncome <- read_csv("~/medianIncome.csv") %>%
+  filter(State != "D.C.")
+
+# joining all of the datasets for our final dataset
+blogData <- data %>%
+  inner_join(data2) %>%
+  inner_join(medianIncome)
+```
+
