@@ -1,7 +1,7 @@
 ---
-title: "Your Project Title Here"
-author: "Your Names Here"
-date: "Add a date"
+title: "Carbon Emissions Things!"
+author: "Majd Rouhana, Elizabeth Tran, Charlie Estes"
+date: "November 15th, 2020"
 output:
   rmdformats::readthedown:
     thumbnails: false
