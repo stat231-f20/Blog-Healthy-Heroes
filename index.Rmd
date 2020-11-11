@@ -13,7 +13,9 @@ knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 library(tidyverse)
 ```
 
-# Header 1
+# Carbon Emissions and Respiratory Illness:
+
+Is there a connection between carbon dioxide emissions levels and respiratory illness at the state level? 
 
 ## Header 2
 
