@@ -56,5 +56,31 @@ medianIncome <- read_csv("medianIncome.csv") %>%
 blogData <- data %>%
   inner_join(data2) %>%
   inner_join(medianIncome)
+
+#creating data to be mapped
+library(fivethirtyeight)
+library(maps)
+library(ggplot2)
+library(viridis)
+
+usa_states <- map_data(map = "state"
+, region = ".")
+
+usa_states
+
+data_for_mapping <- blogData %>% 
+  mutate(region = tolower(State)) %>%
+  merge(usa_states, by = c("State" = "region")) %>%
+  rename(perCapitaC02 = `Per Capita C02 Emission`, )
+
+
+
+
+ggplot(data_for_mapping, aes(x = long, y = lat, group = group , fill = perCapitaC02)) +
+geom_polygon(color = "white") +
+theme_void() +
+coord_fixed(ratio = 1.3) +
+labs(title = ""
+, fill = "") + scale_color_viridis(option = "plasma")
 ```
 
