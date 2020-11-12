@@ -52,6 +52,11 @@ data2 <- carbonData %>%
 medianIncome <- read_csv("medianIncome.csv") %>%
   filter(State != "D.C.")
 
+# reading in and wrangling csv for party affiliation by state
+partyAffiliation <- read_csv("partyAffiliation.csv") %>%
+  mutate(party = ifelse(Democrat > Republican, "Democrat", "Republican"))
+
+
 # joining all of the datasets for our final dataset
 blogData <- data %>%
   inner_join(data2) %>%
