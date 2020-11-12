@@ -76,8 +76,8 @@ usa_states
 
 data_for_mapping <- blogData %>% 
   mutate(region = tolower(State)) %>%
-  merge(usa_states, by = c("State" = "region")) %>%
-  rename(perCapitaC02 = `Per Capita C02 Emission`, )
+  right_join(usa_states, by = "region") %>%
+  rename(perCapitaC02 = `Per Capita C02 Emission`)
 
 
 
