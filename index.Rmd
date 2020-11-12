@@ -3,7 +3,7 @@ title: "Carbon Emissions Things!"
 author: "Majd Rouhana, Elizabeth Tran, Charlie Estes"
 date: "November 15th, 2020"
 output:
-  rmdformats::readthedown:
+  rmdformats::material:
     thumbnails: false
     highlight: NULL
 ---
