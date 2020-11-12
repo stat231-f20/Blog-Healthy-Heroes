@@ -60,7 +60,8 @@ partyAffiliation <- read_csv("partyAffiliation.csv") %>%
 # joining all of the datasets for our final dataset
 blogData <- data %>%
   inner_join(data2) %>%
-  inner_join(medianIncome)
+  inner_join(medianIncome) %>%
+  inner_join(partyAffiliation)
 
 #creating data to be mapped
 library(fivethirtyeight)
