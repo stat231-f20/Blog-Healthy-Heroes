@@ -63,6 +63,8 @@ blogData <- data %>%
   inner_join(medianIncome) %>%
   inner_join(partyAffiliation)
 
+write_csv(blogData, 'blog_carbon_Data.csv')
+
 #creating data to be mapped
 library(fivethirtyeight)
 library(maps)
@@ -74,19 +76,14 @@ usa_states <- map_data(map = "state"
 
 usa_states
 
-data_for_mapping <- blogData %>% 
+us_data_for_mapping <- blogData %>% 
   mutate(region = tolower(State)) %>%
   right_join(usa_states, by = "region") %>%
-  rename(perCapitaC02 = `Per Capita C02 Emission`)
+  rename(perCapitaC02 = `Per Capita C02 Emission`, medianIncome = `Median Income`, C02Emission = `C02 Emission`)
 
 
 
 
-ggplot(data_for_mapping, aes(x = long, y = lat, group = group , fill = perCapitaC02)) +
-geom_polygon(color = "white") +
-theme_void() +
-coord_fixed(ratio = 1.3) +
-labs(title = ""
-, fill = "") + scale_color_viridis(option = "plasma")
+write_csv(us_data_for_mapping, 'us_data_for_mapping.csv')
 ```
 

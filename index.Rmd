@@ -11,7 +11,16 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 library(tidyverse)
+library(ggplot2)
+library(viridis)
+
+
+us_data_for_mapping <- read_csv('us_data_for_mapping.csv')
+
+carbon_data <- read_csv('blog_carbon_data.csv')
 ```
+
+
 
 # Carbon Emissions and Respiratory Illness:
 
@@ -19,9 +28,11 @@ Is there a statewide connection between carbon dioxide emissions levels and resp
 
 ## Header 2
 
-# Education and Carbon Emissions
+# Education and Public Health: A Carbon Emissions Point of View
 
-Solutions to climate change tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [1], [2]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
+Climate-induced disruptions are increasing in frequency and intensity, in part due to human activity. It has been shown that public health issues can be linked to such disruptions; The CDC has found that "the health effects of [climate-induced] disruptions include increased respiratory and cardiovascular disease, injuries and premature deaths related to extreme weather events, changes in the prevalence and geographical distribution of food- and water-borne illnesses and other infectious diseases, and threats to mental health."[3] Thus, if we care about public health, it seems to make sense to care about reducing carbon emissions.
+
+Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [1], [2]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
 
 At the state level, how does educational attainment affect carbon emissions?
 
@@ -30,15 +41,18 @@ At the state level, how does educational attainment affect carbon emissions?
 
 [1]:https://doi.org/10.1371/journal.pone.0206266
 [2]:http://dx.doi.org/10.1038/s41893-020-0512-y
+[3]:https://www.cdc.gov/climateandhealth/effects/default.htm
 
 
-```{r}
-ggplot(data_for_mapping, aes(x = long, y = lat, group = group , fill = perCapitaC02)) +
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+  
+ggplot(us_data_for_mapping, aes(x = long, y = lat, group = group , fill = perCapitaC02)) +
 geom_polygon(color = "white") +
 theme_void() +
 coord_fixed(ratio = 1.3) +
-labs(title = ""
-, fill = "") + scale_color_viridis(option = "plasma")
+labs(title = "Per Capita Carbon Emissions Estimates, US State Level"
+, fill = "Emissions Per Capita (tons/yr)") + scale_color_viridis(option = "plasma")
 ```
 
 
