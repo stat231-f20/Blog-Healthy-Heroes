@@ -19,7 +19,7 @@ Is there a statewide connection between carbon dioxide emissions levels and resp
 
 ## Header 2
 
-### Education and Carbon Emissions
+# Education and Carbon Emissions
 
 Solutions to climate change tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [1], [2]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
 
