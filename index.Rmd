@@ -20,6 +20,8 @@ us_data_for_mapping <- read_csv('us_data_for_mapping.csv')
 
 carbon_data <- read_csv('blog_carbon_data.csv')
 
+blogData <- read_csv("blogData.csv")
+
 ```
 
 
@@ -32,13 +34,14 @@ carbon_data <- read_csv('blog_carbon_data.csv')
 
 # Respiratory Disease Mortality Rate by State  {.tabset .tabset-fade .tabset-pills}
 
-
+In looking at the mortality rate of respiratory disease against the carbon dioxide emission rate per millions of metric tons, there does not seem to be a very linear correlation. However, when plotted against our other variables, such as median income or percent of adults 25 or older with a Bachelor's Degree, the linearity increases substantially. After a visual correlation test, we can see that the coefficient of correlation value is close to -1.0 
 
 ```{r}
-# Create scatter plot of CO2 Emission vs. Mortality Rate. Remove outlier (Texas).
+# Create scatter plot of CO2 Emission vs. Mortality Rate. 
 rateEmissionsData <- blogData %>%
-  rename("CO2_Emission" = "C02 Emission")
-
+  rename("CO2_Emission" = "C02 Emission") %>%
+  rename("MedianIncome" = "Median Income")
+  
 rateEmissions <- ggplot(rateEmissionsData, aes(x = CO2_Emission, y = Rate)) +
   geom_point() + 
   xlab("CO2 Emission") +
@@ -59,7 +62,25 @@ plot(matrixData , pch=20 , cex=1.5 , col="#69b3a2")
 
 ggcorr(matrixData)
 ```
+After running the plots of mortality rate against both median income and educational attainment, we see a much more linear correlation. As income and education level increases, the rate of mortality decreases. This has interesting implications for our project; it seems that income and education are much more influential factors than location. 
 
+
+```{r}
+rateEmissions1 <- ggplot(rateEmissionsData, aes(x = MedianIncome, y = Rate)) +
+  geom_point() + 
+  xlab("Median Income") +
+  ylab("Mortality Rate") +
+  geom_smooth() 
+
+rateEmissions2 <- ggplot(rateEmissionsData, aes(x = PercentBachelorsOrHigher, y = Rate)) +
+  geom_point() + 
+  xlab("% of Adults 25 and Older with BA") +
+  ylab("Mortality Rate") +
+  geom_smooth() 
+
+rateEmissions1
+rateEmissions2
+```
 
 
 
