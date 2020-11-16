@@ -14,13 +14,14 @@ library(tidyverse)
 library(ggplot2)
 library(viridis)
 library(GGally)
+library(ggformula)
 
 
 us_data_for_mapping <- read_csv('us_data_for_mapping.csv')
 
-carbon_data <- read_csv('blog_carbon_data.csv')
-
 blogData <- read_csv("blogData.csv")
+
+carbon_data <- blogData %>%  rename(perCapitaC02 = `Per Capita C02 Emission`, medianIncome = `Median Income`, C02Emission = `C02 Emission`)
 
 ```
 
@@ -93,22 +94,34 @@ Solutions aimed at carbon emission reduction tend to focus on mitigation and ada
 At the state level, how does educational attainment affect carbon emissions?
 
 
-
-
 [1]:https://doi.org/10.1371/journal.pone.0206266
 [2]:http://dx.doi.org/10.1038/s41893-020-0512-y
 [3]:https://www.cdc.gov/climateandhealth/effects/default.htm
 
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+##interactive html scatterplot using plotly package
+
+ scatter1 <- ggplot(carbon_data, aes(x = PercentBachelorsOrHigher, y = perCapitaC02,
+  text = paste("State: ", State,"<br>% Bachelors:", PercentBachelorsOrHigher, "<br>C02 Per Capita:", perCapitaC02))) + 
+  geom_point(color = 'dark blue') + 
+  labs(title = "Educational Attainment vs. Per Capita Carbon Emissions", x = "% Bachelor's Degree Or Higher", y = "Per Capita C02 Emissions (tons/yr)") 
+  
+
+library(plotly)
+
+ggplotly(scatter1, tooltip = "text")
+
+```
+
+As the plot shows, there seems to be a slight negative relationship between attainment of higher educational degrees and per capita carbon emissions. 
+
+What about a proximal measurement for education - income - and it's relationship with per capita C02 emissions? 
+
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 
-  
-ggplot(us_data_for_mapping, aes(x = long, y = lat, group = group , fill = perCapitaC02)) +
-geom_polygon(color = "white") +
-theme_void() +
-coord_fixed(ratio = 1.3) +
-labs(title = "Per Capita Carbon Emissions Estimates, US State Level"
-, fill = "Emissions Per Capita (tons/yr)") + scale_color_viridis(option = "plasma")
+  #medianIncome vs. perCapC02
 ```
 
 

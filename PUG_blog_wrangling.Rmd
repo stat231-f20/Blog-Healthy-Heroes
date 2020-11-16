@@ -63,7 +63,7 @@ blogData <- data %>%
   inner_join(medianIncome) %>%
   inner_join(partyAffiliation)
 
-write_csv(blogData, 'blog_carbon_Data.csv')
+write_csv(blogData, 'blogData.csv')
 
 #creating data to be mapped
 library(fivethirtyeight)
