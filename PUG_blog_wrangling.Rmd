@@ -35,7 +35,8 @@ carbonData <- read_csv("carbonData.csv") %>%
   na.omit() %>%
   filter(State != "Total of states (unadjusted)?", State != "United States", State != "District of Columbia") %>%
   mutate(`C02 Emission` = `2017`) %>%
-  select(State, `C02 Emission`)
+  select(State, `C02 Emission`) %>%
+  rename(CO2_Emission = 'C02 Emission')
 
 # reading in and wrangling csv for per capita state carbon emissions
 perCapita <- read_csv("perCapita.csv") %>%
@@ -50,7 +51,8 @@ data2 <- carbonData %>%
 
 # reading in and wrangling csv for median income by state
 medianIncome <- read_csv("medianIncome.csv") %>%
-  filter(State != "D.C.")
+  filter(State != "D.C.") %>%
+  rename(MedianIncome = "Median Income")
 
 # reading in and wrangling csv for party affiliation by state
 partyAffiliation <- read_csv("partyAffiliation.csv") %>%

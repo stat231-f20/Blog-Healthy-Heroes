@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 library(tidyverse)
 library(ggplot2)
 library(viridis)
+library(GGally)
 
 
 us_data_for_mapping <- read_csv('us_data_for_mapping.csv')
@@ -24,9 +25,39 @@ carbon_data <- read_csv('blog_carbon_data.csv')
 
 # Carbon Emissions and Respiratory Illness:
 
-Is there a statewide connection between carbon dioxide emissions levels and respiratory illness? 
+  Climate change is an intensely complex phenomenon. It proceeds at an unsteady pace, scientists still struggle to determine the long-term effects, and while research is prevalent, exactly how to solve this issue remains to be decided. Even so, the sum of evidence paints a clear (and terrifying) picture: our Earth is warming and the consequences are becoming increasingly destructive. Scientists have high confidence that the warming temperatures and unstable weather patterns will continue, especially as the production of greenhouse gases remains unhindered. For the United States, this can look like sustained wildfires in the West, rising sea levels, stronger hurricanes, and other environmental repercussions. While those can all be seen as the ramifications on our Earth, it is also important to look at how humans specifically are impacted by greenhouse emissions. Further, the diverse and varied population and demographics of the United States dictates what is already known: the effects will not be the same for everyone. 
+  According to the American Lung Association’s State of the Air, a yearly report based on official air quality data, almost 5 in 10 people live in counties where the air is unhealthy to breathe. Further, the impacts of the air quality varies for different groups of people. Those with preexisting health conditions, in poverty, who belong to a community of color, and more have been shown to be more likely to be at risk. Exactly what this might look like is difficult to determine, but there has been a great deal of research that measures how certain factors can dictate who is affected.  
+  Our project looks at the respiratory illness mortality rate per state against a number of different factors, including carbon emissions, educational attainment rates, and median household income. With this information, we hoped to see how mortality rates varied between states and whether we could see a correlation between that and carbon emission rates. By examining how educational attainment and income might influence these rates, we also want to see how class and other societal indicators might be relevant. Of course, our findings do not indicate any direct causation between these variables, but rather show how some level of correlation might be at play.
 
-## Header 2
+# Respiratory Disease Mortality Rate by State  {.tabset .tabset-fade .tabset-pills}
+
+
+
+```{r}
+# Create scatter plot of CO2 Emission vs. Mortality Rate. Remove outlier (Texas).
+rateEmissionsData <- blogData %>%
+  filter(CO2_Emission != 711.0)
+
+rateEmissions <- ggplot(blogData, aes(x = CO2_Emission, y = Rate)) +
+  geom_point() + 
+  xlab("CO2 Emission") +
+  ylab("Mortality Rate") +
+  geom_smooth() 
+
+rateEmissions
+
+```
+
+```{r}
+matrixData <- blogData %>%
+  select(Rate, CO2_Emission, MedianIncome, PercentBachelorsOrHigher)
+plot(matrixData , pch=20 , cex=1.5 , col="#69b3a2")
+
+ggcorr(matrixData)
+```
+
+
+
 
 # Education and Public Health: A Carbon Emissions Point of View
 
