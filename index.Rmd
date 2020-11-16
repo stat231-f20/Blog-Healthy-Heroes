@@ -158,8 +158,8 @@ One consideration is that the Republican Party places less of an emphasis on the
 color <- c("dodgerblue", "firebrick1")
 
 gf_boxplot(Rate ~ party, data = blogData, fill = color) +
-  labs(xlab = "Political Party Majority"
-       , ylab = "Respiratory Disease Death Rate"
+  labs(x = "Political Party Majority"
+       , y = "Respiratory Disease Death Rate"
        , title = "Respiratory Disease Death Rate vs Political Party Majority per State")
 ```
 
