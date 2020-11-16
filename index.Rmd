@@ -48,7 +48,7 @@ Our project looks at the respiratory illness mortality rate per state against a 
 
 In looking at the mortality rate of respiratory disease against the carbon dioxide emission rate per millions of metric tons, there does not seem to be a very linear correlation. However, when plotted against our other variables, such as median income or percent of adults 25 or older with a Bachelor's Degree, the linearity increases substantially. After a visual correlation test, we can see that the coefficient of correlation value is close to -1.0 
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 # Create scatter plot of CO2 Emission vs. Mortality Rate. 
 rateEmissionsData <- blogData %>%
   rename("CO2_Emission" = "C02 Emission") %>%
@@ -64,7 +64,7 @@ rateEmissions
 
 ```
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 matrixData <- blogData %>%
   rename("MedianIncome" = "Median Income") %>%
   rename("CO2_Emission" = "C02 Emission") %>%
@@ -77,7 +77,7 @@ ggcorr(matrixData)
 After running the plots of mortality rate against both median income and educational attainment, we see a much more linear correlation. As income and education level increases, the rate of mortality decreases. This has interesting implications for our project; it seems that income and education are much more influential factors than location. 
 
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 rateEmissions1 <- ggplot(rateEmissionsData, aes(x = MedianIncome, y = Rate)) +
   geom_point() + 
   xlab("Median Income") +
@@ -154,7 +154,7 @@ States that have a democratic majority tend to be states with large cities; this
 
 One consideration is that the Republican Party places less of an emphasis on the importance of climate control and air pollution than the Democratic Party. Due of this, republican-majority states may in turn place less of an emphasis on controlling pollution. As a result, there may be more cases of respiratory disease, and thus, a higher death rate.
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 color <- c("dodgerblue", "firebrick1")
 
 gf_boxplot(Rate ~ party, data = blogData, fill = color) +
