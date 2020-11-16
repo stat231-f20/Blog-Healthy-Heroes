@@ -19,6 +19,7 @@ library(GGally)
 us_data_for_mapping <- read_csv('us_data_for_mapping.csv')
 
 carbon_data <- read_csv('blog_carbon_data.csv')
+
 ```
 
 
@@ -36,9 +37,9 @@ carbon_data <- read_csv('blog_carbon_data.csv')
 ```{r}
 # Create scatter plot of CO2 Emission vs. Mortality Rate. Remove outlier (Texas).
 rateEmissionsData <- blogData %>%
-  filter(CO2_Emission != 711.0)
+  rename("CO2_Emission" = "C02 Emission")
 
-rateEmissions <- ggplot(blogData, aes(x = CO2_Emission, y = Rate)) +
+rateEmissions <- ggplot(rateEmissionsData, aes(x = CO2_Emission, y = Rate)) +
   geom_point() + 
   xlab("CO2 Emission") +
   ylab("Mortality Rate") +
@@ -50,7 +51,10 @@ rateEmissions
 
 ```{r}
 matrixData <- blogData %>%
+  rename("MedianIncome" = "Median Income") %>%
+  rename("CO2_Emission" = "C02 Emission") %>%
   select(Rate, CO2_Emission, MedianIncome, PercentBachelorsOrHigher)
+
 plot(matrixData , pch=20 , cex=1.5 , col="#69b3a2")
 
 ggcorr(matrixData)
