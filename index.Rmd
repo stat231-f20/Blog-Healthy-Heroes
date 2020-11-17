@@ -95,48 +95,6 @@ rateEmissions2
 ```
 
 
-
-# Education and Public Health: A Carbon Emissions Point of View
-
-Climate-induced disruptions are increasing in frequency and intensity, in part due to human activity. It has been shown that public health issues can be linked to such disruptions; The CDC has found that "the health effects of [climate-induced] disruptions include increased respiratory and cardiovascular disease, injuries and premature deaths related to extreme weather events, changes in the prevalence and geographical distribution of food- and water-borne illnesses and other infectious diseases, and threats to mental health."[1] Thus, if we care about public health, it seems to make sense to care about reducing carbon emissions.
-
-Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [2], [3]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
-
-At the state level, how does educational attainment affect carbon emissions?
-
-
-[2]:https://doi.org/10.1371/journal.pone.0206266
-[3]:http://dx.doi.org/10.1038/s41893-020-0512-y
-[1]:https://www.cdc.gov/climateandhealth/effects/default.htm
-
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-
-##interactive html scatterplot using plotly package
-
- scatter1 <- ggplot(carbon_data, aes(x = PercentBachelorsOrHigher, y = perCapitaC02,
-  text = paste("State: ", State,"<br>% Bachelors:", PercentBachelorsOrHigher, "<br>C02 Per Capita:", perCapitaC02))) + 
-  geom_point(color = 'dark blue') + 
-  labs(title = "Educational Attainment vs. Per Capita Carbon Emissions", x = "% Bachelor's Degree Or Higher", y = "Per Capita C02 Emissions (tons/yr)") 
-  
-
-library(plotly)
-
-ggplotly(scatter1, tooltip = "text")
-
-```
-
-As the plot shows, there seems to be a slight negative relationship between attainment of higher educational degrees and per capita carbon emissions. 
-
-What about a proximal measurement for education - income - and it's relationship with per capita C02 emissions? 
-
-
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-
-  #medianIncome vs. perCapC02
-```
-
-
-
 # Respiratory Disease Death Rate vs Political Party Majority per State
 
 From the box and whisker plot below, we see that the death rate for respiratory diseases is, on average, much lower among democratic-majority states than republican-majority states. The first quartile for republican-majority states, about 43%, is higher than even the third quartile of the democratic-majority states, which is about 42%.
@@ -158,6 +116,95 @@ gf_boxplot(Rate ~ party, data = blogData, fill = color) +
 ## Including links and images
 
 You can include [Links](https://www.datadreaming.org/post/r-markdown-theme-gallery/) and images ![team logo](https://raw.githubusercontent.com/stat231-f20/Blog-Healthy-Heroes/main/images/healthy_heroes.jpg)
+
+# Education and Public Health: A Carbon Emissions Point of View
+
+Climate-induced disruptions are increasing in frequency and intensity, in part due to human activity. It has been shown that public health issues can be linked to such disruptions; The CDC has found that "the health effects of [climate-induced] disruptions include increased respiratory and cardiovascular disease, injuries and premature deaths related to extreme weather events, changes in the prevalence and geographical distribution of food- and water-borne illnesses and other infectious diseases, and threats to mental health."[1] Thus, if we care about public health, it seems to make sense to care about reducing carbon emissions.
+
+Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [2], [3]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
+
+At the state level, how does educational attainment affect carbon emissions?
+
+
+[2]:https://doi.org/10.1371/journal.pone.0206266
+[3]:http://dx.doi.org/10.1038/s41893-020-0512-y
+[1]:https://www.cdc.gov/climateandhealth/effects/default.htm
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+##interactive html scatterplot using plotly package
+
+ scatter1 <- ggplot(carbon_data, aes(x = PercentBachelorsOrHigher, y = perCapitaC02,
+  text = paste("State: ", State,"<br>% Bachelors:", PercentBachelorsOrHigher, "<br>C02 Per Capita:", perCapitaC02))) + 
+  geom_point(color = 'dark blue') + 
+  labs(title = "Educational Attainment vs. Per Capita Carbon Emissions", 
+       x = "% Bachelor's Degree Or Higher", y = "Per Capita C02 Emissions (tons/yr)") 
+  
+
+library(plotly)
+
+ggplotly(scatter1, tooltip = "text")
+
+```
+
+
+
+As the plot shows, there seems to be a slight negative relationship between attainment of higher educational degrees and per capita carbon emissions. This result serves to support the notion that even general higher education programs, producing a more educated populus, can be an important step towards reducing carbon emissions to a more sustainable level.
+
+## Proximal Measure of Education
+
+What about a proximal measurement for education - income - and it's relationship with per capita C02 emissions? 
+
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+  #medianIncome vs. perCapC02
+ scatter2 <- ggplot(carbon_data, aes(x = medianIncome, y = perCapitaC02,
+  text = paste("State: ", State,"<br>Median Income: $",medianIncome, "<br>C02 Per Capita:", perCapitaC02 ))) + 
+  geom_point(color = 'maroon') + 
+  labs(title = "Median Income vs. Per Capita Carbon Emissions", x = "Median Income", y = "Per Capita C02 Emissions (tons/yr)") 
+  
+
+library(plotly)
+
+ggplotly(scatter2, tooltip = "text")
+```
+
+
+
+We can see that the distribution of median income looks very similar to that of Educational Attainment. Again, there appears to be a slight negative correlation between median income and per capita carbon emissions. 
+
+Why is this result important? Though this graph may suggest that higher income can lead to lower carbon emissions, this is unlikely to be the case given that there is significant evidence to support the opposite conclusion. Several studies have shown the association between income and carbon emissions is positive in the US (and the rest of the world), meaning that higher earners tend to be responsible for higher yearly emissions(see [4],[5]).
+
+### Limitations and Future Exploration
+
+The findings that attaining a higher level of education may serve to mitigatory tactic to reduce the citizenry's carbon footprint are preliminary. Our data limits us to groupings by each state. State groupings were not the best way to determine any association between income and per capita carbon emissions, so there is reason to suspect they may not be the best way to measure the degree to which general education affects carbon emissions, either. Perhap a better method would be is to first stratify by income, and compare the carbon emissions of earners within each income group, separated by level of educational attainment. Controlling for income as a preliminary measure could provide a more precise answer to the question during future exploration.
+
+[4]: https://doi.org/10.1073/pnas.1922205117
+[5]: https://doi.org/10.1016/j.jclepro.2020.123994
+
+
+# Sources
+
+**Data:**
+
+(links from google doc?)
+
+
+**Scientific Papers:**
+
+https://doi.org/10.1371/journal.pone.0206266
+
+http://dx.doi.org/10.1038/s41893-020-0512-y
+
+https://www.cdc.gov/climateandhealth/effects/default.htm
+
+https://doi.org/10.1073/pnas.1922205117
+
+https://doi.org/10.1016/j.jclepro.2020.123994
+
+
+
 
 
 
