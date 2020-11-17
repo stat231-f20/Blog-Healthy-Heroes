@@ -33,69 +33,78 @@ carbon_data <- blogData %>%  rename(perCapitaC02 = `Per Capita C02 Emission`, me
 
 Climate change is an intensely complex phenomenon. It proceeds at an unsteady pace, scientists still struggle to determine the long-term effects, and while research is prevalent, exactly how to solve this issue remains to be decided. Even so, the sum of evidence paints a clear (and terrifying) picture: our Earth is warming and the consequences are becoming increasingly destructive. Scientists have high confidence that the warming temperatures and unstable weather patterns will continue, especially as the production of greenhouse gases remains unhindered. For the United States, this can look like sustained wildfires in the West, rising sea levels, stronger hurricanes, and other environmental repercussions. While those can all be seen as the ramifications on our Earth, it is also important to look at how humans specifically are impacted by greenhouse emissions. Furthermore, the diverse and varied population and demographics of the United States dictates what is already known: the effects will not be the same for everyone. 
 
-
-
-
-
 According to the American Lung Association’s State of the Air, a yearly report based on official air quality data, almost 5 in 10 people live in counties where the air is unhealthy to breathe. Further, the impacts of the air quality varies for different groups of people. Those with preexisting health conditions, in poverty, who belong to a community of color, and more have been shown to be more likely to be at risk. Exactly what this might look like is difficult to determine, but there has been a great deal of research that measures how certain factors can dictate who is affected.  
-
-
-
-
-
 
 Our project looks at the respiratory illness mortality rate per state against a number of different factors, including carbon emissions, educational attainment rates, and median household income. With this information, we hoped to see how mortality rates varied between states and whether we could see a correlation between that and carbon emission rates. By examining how educational attainment and income might influence these rates, we also want to see how class and other societal indicators might be relevant. Of course, our findings do not indicate any direct causation between these variables, but rather show how some level of correlation might be at play.
 
-# Respiratory Disease Mortality Rate by State  {.tabset .tabset-fade .tabset-pills}
+# Respiratory Disease Mortality Rate {.tabset .tabset-fade .tabset-pills}
 
-In looking at the mortality rate of respiratory disease against the carbon dioxide emission rate per millions of metric tons, there does not seem to be a very linear correlation. However, when plotted against our other variables, such as median income or percent of adults 25 or older with a Bachelor's Degree, the linearity increases substantially. After a visual correlation test, we can see that the coefficient of correlation value is close to -1.0 
+Here, we examine how different factors influence the respiratory disease mortality rate per state. After the removal of two outliers (Texas, California), the following scatterplot measures the mortality rate percentage against carbon dioxide emission rates per millions of metric tons. Here we see a curved, nonlinear pattern with a insignificant correlation coefficient of 0.103. While in our initial hypothesis, we stipulated that higher emission rates would consequently show higher mortality rates, we next test measures of class and wealth as influencing factors.
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-# Create scatter plot of CO2 Emission vs. Mortality Rate. 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+# Create dataset and scatter plot of CO2 Emission vs. Mortality Rate. 
 rateEmissionsData <- blogData %>%
   rename("CO2_Emission" = "C02 Emission") %>%
-  rename("MedianIncome" = "Median Income")
+  rename("MedianIncome" = "Median Income") %>%
+  filter(State != "Texas",  State != "California")
   
 rateEmissions <- ggplot(rateEmissionsData, aes(x = CO2_Emission, y = Rate)) +
   geom_point() + 
-  xlab("CO2 Emission") +
-  ylab("Mortality Rate") +
+  xlab("CO2 Emissions (per millions of tons)") +
+  ylab("Mortality Rate (percent)") +
   geom_smooth() 
 
 rateEmissions
-
 ```
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+# Create dataset for matrix
 matrixData <- blogData %>%
   rename("MedianIncome" = "Median Income") %>%
   rename("CO2_Emission" = "C02 Emission") %>%
+  filter(State != "Texas",  State != "California")%>%
   select(Rate, CO2_Emission, MedianIncome, PercentBachelorsOrHigher)
 
-plot(matrixData , pch=20 , cex=1.5 , col="#69b3a2")
-
-ggcorr(matrixData)
+# Create scatterplot matrix 
+# ggpairs(matrixData)
+# ggcorr(matrixData)
 ```
 
-After running the plots of mortality rate against both median income and educational attainment, we see a much more linear correlation. As income and education level increases, the rate of mortality decreases. This has interesting implications for our project; it seems that income and education are much more influential factors than location. 
+## Income vs. Mortality Rate {.tabset .tabset-fade .tabset-pills}
 
+The scatterplot below measures the mortality rate against median income. Now, the relationship appears to be much more linear, with a correlation coefficient of -0.709. As the median income increases, the percentage of mortality rate tends to decrease.
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
+# Scatterplot for median income vs. mortality rate
 rateEmissions1 <- ggplot(rateEmissionsData, aes(x = MedianIncome, y = Rate)) +
   geom_point() + 
   xlab("Median Income") +
-  ylab("Mortality Rate") +
-  geom_smooth() 
-
-rateEmissions2 <- ggplot(rateEmissionsData, aes(x = PercentBachelorsOrHigher, y = Rate)) +
-  geom_point() + 
-  xlab("% of Adults 25 and Older with BA") +
-  ylab("Mortality Rate") +
+  ylab("Mortality Rate (percent)") +
   geom_smooth() 
 
 rateEmissions1
+```
+
+## % of BAs vs. Mortality Rate
+
+The scatterplot below measures the mortality rate against educational attainment through the percentage of adults aged 25 and older with a Bachelor's Degree. Once again, there is a negative linear relationship, with a correlation coefficient of -0.074.
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+# Scatterplot for percent of BAs vs. mortality rate
+rateEmissions2 <- ggplot(rateEmissionsData, aes(x = PercentBachelorsOrHigher, y = Rate)) +
+  geom_point() + 
+  xlab("% of Adults 25 and Older with BA") +
+  ylab("Mortality Rate (percent") +
+  geom_smooth() 
+
 rateEmissions2
 ```
+
+The more significant correlation coefficents in the previous two graphs have interesting implications for our research. Regularly considered to be definitive indicators of class, income and educational attainment seem to have a stronger relationship with mortality rates than carbon emissions. While there is not sufficient evidence to claim a causal association, these results do support well-known figures about the discriminatory housing policy history in the United States. After years of redlining and gentrification, particularly in cities, communities of color and low-income families tend to make up the majority of those living in closest proximity to energy plants and refineries (see [1]). 
+
+
+[1]:https://www.scientificamerican.com/article/pollution-poverty-people-color-living-industry/
 
 
 # Respiratory Disease Death Rate vs Political Party Majority per State
@@ -119,16 +128,16 @@ gf_boxplot(Rate ~ party, data = blogData, fill = color) +
 
 # Education and Public Health: A Carbon Emissions Point of View
 
-Climate-induced disruptions are increasing in frequency and intensity, in part due to human activity. It has been shown that public health issues can be linked to such disruptions; The CDC has found that "the health effects of [climate-induced] disruptions include increased respiratory and cardiovascular disease, injuries and premature deaths related to extreme weather events, changes in the prevalence and geographical distribution of food- and water-borne illnesses and other infectious diseases, and threats to mental health."[1] Thus, if we care about public health, it seems to make sense to care about reducing carbon emissions.
+Climate-induced disruptions are increasing in frequency and intensity, in part due to human activity. It has been shown that public health issues can be linked to such disruptions; The CDC has found that "the health effects of [climate-induced] disruptions include increased respiratory and cardiovascular disease, injuries and premature deaths related to extreme weather events, changes in the prevalence and geographical distribution of food- and water-borne illnesses and other infectious diseases, and threats to mental health."[2] Thus, if we care about public health, it seems to make sense to care about reducing carbon emissions.
 
-Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [2], [3]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
+Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [3], [4]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
 
 At the state level, how does educational attainment affect carbon emissions?
 
 
-[2]:https://doi.org/10.1371/journal.pone.0206266
-[3]:http://dx.doi.org/10.1038/s41893-020-0512-y
-[1]:https://www.cdc.gov/climateandhealth/effects/default.htm
+[3]:https://doi.org/10.1371/journal.pone.0206266
+[4]:http://dx.doi.org/10.1038/s41893-020-0512-y
+[2]:https://www.cdc.gov/climateandhealth/effects/default.htm
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 
@@ -174,14 +183,14 @@ ggplotly(scatter2, tooltip = "text")
 
 We can see that the distribution of median income looks very similar to that of Educational Attainment. Again, there appears to be a slight negative correlation between median income and per capita carbon emissions. 
 
-Why is this result important? Though this graph may suggest that higher income can lead to lower carbon emissions, this is unlikely to be the case given that there is significant evidence to support the opposite conclusion. Several studies have shown the association between income and carbon emissions is positive in the US (and the rest of the world), meaning that higher earners tend to be responsible for higher yearly emissions (see [4], [5]).
+Why is this result important? Though this graph may suggest that higher income can lead to lower carbon emissions, this is unlikely to be the case given that there is significant evidence to support the opposite conclusion. Several studies have shown the association between income and carbon emissions is positive in the US (and the rest of the world), meaning that higher earners tend to be responsible for higher yearly emissions (see [5], [6]).
 
 ### Limitations and Future Exploration
 
 The findings that attaining a higher level of education may serve to mitigatory tactic to reduce the citizenry's carbon footprint are preliminary. Our data limits us to groupings by each state. State groupings were not the best way to determine any association between income and per capita carbon emissions, so there is reason to suspect they may not be the best way to measure the degree to which general education affects carbon emissions, either. Perhaps a better method would be is to first stratify by income, and compare the carbon emissions of earners within each income group, separated by level of educational attainment. Controlling for income as a preliminary measure could provide a more precise answer to the question during future exploration.
 
-[4]: https://doi.org/10.1073/pnas.1922205117
-[5]: https://doi.org/10.1016/j.jclepro.2020.123994
+[5]: https://doi.org/10.1073/pnas.1922205117
+[6]: https://doi.org/10.1016/j.jclepro.2020.123994
 
 
 # In Conclusion: What Are The Next Steps?
