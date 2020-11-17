@@ -132,7 +132,7 @@ Climate-induced disruptions are increasing in frequency and intensity, in part d
 
 Solutions aimed at carbon emission reduction tend to focus on mitigation and adaptation measures, and successful implementation of either strategy requires an informed and educated citizenry. Several studies have demonstrated the potential efficacy of education programs developed specifically for climate change mitigation (see [3], [4]). However, since targeted climate change education is less common at present than other forms of higher education, we wanted to explore the potential connection between general educational attainment and carbon emissions. 
 
-At the state level, how does educational attainment affect carbon emissions?
+At the state level, how does individual educational attainment affect carbon emissions?
 
 
 [3]:https://doi.org/10.1371/journal.pone.0206266
