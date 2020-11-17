@@ -1,5 +1,5 @@
 ---
-title: "Carbon Emissions Things!"
+title: "The Links Between Respiratory Illnesses, Carbon Emissions and Other Factors"
 author: "Majd Rouhana, Elizabeth Tran, Charlie Estes"
 date: "November 15th, 2020"
 output:
@@ -27,9 +27,11 @@ carbon_data <- blogData %>%  rename(perCapitaC02 = `Per Capita C02 Emission`, me
 
 
 
-# Carbon Emissions and Respiratory Illness:
+# Carbon Emissions and Respiratory Illness
 
-Climate change is an intensely complex phenomenon. It proceeds at an unsteady pace, scientists still struggle to determine the long-term effects, and while research is prevalent, exactly how to solve this issue remains to be decided. Even so, the sum of evidence paints a clear (and terrifying) picture: our Earth is warming and the consequences are becoming increasingly destructive. Scientists have high confidence that the warming temperatures and unstable weather patterns will continue, especially as the production of greenhouse gases remains unhindered. For the United States, this can look like sustained wildfires in the West, rising sea levels, stronger hurricanes, and other environmental repercussions. While those can all be seen as the ramifications on our Earth, it is also important to look at how humans specifically are impacted by greenhouse emissions. Further, the diverse and varied population and demographics of the United States dictates what is already known: the effects will not be the same for everyone. 
+![](https://thehill.com/sites/default/files/ca_carbonemissions_040320istock.jpg)
+
+Climate change is an intensely complex phenomenon. It proceeds at an unsteady pace, scientists still struggle to determine the long-term effects, and while research is prevalent, exactly how to solve this issue remains to be decided. Even so, the sum of evidence paints a clear (and terrifying) picture: our Earth is warming and the consequences are becoming increasingly destructive. Scientists have high confidence that the warming temperatures and unstable weather patterns will continue, especially as the production of greenhouse gases remains unhindered. For the United States, this can look like sustained wildfires in the West, rising sea levels, stronger hurricanes, and other environmental repercussions. While those can all be seen as the ramifications on our Earth, it is also important to look at how humans specifically are impacted by greenhouse emissions. Furthermore, the diverse and varied population and demographics of the United States dictates what is already known: the effects will not be the same for everyone. 
 
 
 
@@ -74,6 +76,7 @@ plot(matrixData , pch=20 , cex=1.5 , col="#69b3a2")
 
 ggcorr(matrixData)
 ```
+
 After running the plots of mortality rate against both median income and educational attainment, we see a much more linear correlation. As income and education level increases, the rate of mortality decreases. This has interesting implications for our project; it seems that income and education are much more influential factors than location. 
 
 
@@ -109,13 +112,10 @@ color <- c("dodgerblue", "firebrick1")
 gf_boxplot(Rate ~ party, data = blogData, fill = color) +
   labs(x = "Political Party Majority"
        , y = "Respiratory Disease Death Rate"
-       , title = "Respiratory Disease Death Rate vs Political Party Majority per State")
+       , title = "Respiratory Disease Death Rate vs Political Party Majority")
 ```
 
 
-## Including links and images
-
-You can include [Links](https://www.datadreaming.org/post/r-markdown-theme-gallery/) and images ![team logo](https://raw.githubusercontent.com/stat231-f20/Blog-Healthy-Heroes/main/images/healthy_heroes.jpg)
 
 # Education and Public Health: A Carbon Emissions Point of View
 
@@ -153,7 +153,7 @@ As the plot shows, there seems to be a slight negative relationship between atta
 
 ## Proximal Measure of Education
 
-What about a proximal measurement for education - income - and it's relationship with per capita C02 emissions? 
+What about a proximal measurement for education--income--and it's relationship with per capita C02 emissions? 
 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
@@ -174,21 +174,39 @@ ggplotly(scatter2, tooltip = "text")
 
 We can see that the distribution of median income looks very similar to that of Educational Attainment. Again, there appears to be a slight negative correlation between median income and per capita carbon emissions. 
 
-Why is this result important? Though this graph may suggest that higher income can lead to lower carbon emissions, this is unlikely to be the case given that there is significant evidence to support the opposite conclusion. Several studies have shown the association between income and carbon emissions is positive in the US (and the rest of the world), meaning that higher earners tend to be responsible for higher yearly emissions(see [4],[5]).
+Why is this result important? Though this graph may suggest that higher income can lead to lower carbon emissions, this is unlikely to be the case given that there is significant evidence to support the opposite conclusion. Several studies have shown the association between income and carbon emissions is positive in the US (and the rest of the world), meaning that higher earners tend to be responsible for higher yearly emissions (see [4], [5]).
 
 ### Limitations and Future Exploration
 
-The findings that attaining a higher level of education may serve to mitigatory tactic to reduce the citizenry's carbon footprint are preliminary. Our data limits us to groupings by each state. State groupings were not the best way to determine any association between income and per capita carbon emissions, so there is reason to suspect they may not be the best way to measure the degree to which general education affects carbon emissions, either. Perhap a better method would be is to first stratify by income, and compare the carbon emissions of earners within each income group, separated by level of educational attainment. Controlling for income as a preliminary measure could provide a more precise answer to the question during future exploration.
+The findings that attaining a higher level of education may serve to mitigatory tactic to reduce the citizenry's carbon footprint are preliminary. Our data limits us to groupings by each state. State groupings were not the best way to determine any association between income and per capita carbon emissions, so there is reason to suspect they may not be the best way to measure the degree to which general education affects carbon emissions, either. Perhaps a better method would be is to first stratify by income, and compare the carbon emissions of earners within each income group, separated by level of educational attainment. Controlling for income as a preliminary measure could provide a more precise answer to the question during future exploration.
 
 [4]: https://doi.org/10.1073/pnas.1922205117
 [5]: https://doi.org/10.1016/j.jclepro.2020.123994
+
+
+# In Conclusion: What Are The Next Steps?
+
+After analyzing a number of different factors, we see that there may be multiple factors that link to death from respiratory illnesses; in particular, carbon emission levels, educational attainment level and median income seemed to be significant from our displays. However, these factors did not seem dependent on state itself. The only factor that did appear to be linked, statewise, was the dominant political view of each state and the death rate from respiratory illness. Nevertheless, these links imply that ignorance may be the root of this. If people are not aware of the damaging effects of climate change, we cannot effectively prevent the effects from taking place.
+
+If there truly do lie links to a higher death rate from respiratory illnesses, then educating people about the importance of climate control and the negative effects pollution has on both yourself and the environment could be an important step to take. However, we cannot simply generalize from our analyses--there may have be lurking variables that hadn't been accounted for that produced these results. Nevertheless, it is still important to raise awareness on the already-researched issue of global warming and pollution. We may be able to save lives and make the earth a better place to live if more and more people are aware of the damages of air pollution.
 
 
 # Sources
 
 **Data:**
 
-(links from google doc?)
+https://www.cdc.gov/nchs/pressroom/sosmap/lung_disease_mortality/lung_disease.htm 
+
+https://www.eia.gov/state/
+
+https://www.eia.gov/environment/emissions/state/ 
+
+https://www.census.gov/newsroom/releases/xls/cb12-33table1states.xls 
+
+https://www2.census.gov/programs-surveys/cps/tables/time-series/historical-income-households/h08.xls
+
+https://worldpopulationreview.com/state-rankings/educational-attainment-by-state
+
 
 
 **Scientific Papers:**
